@@ -2,9 +2,23 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 contract Faucet {
-
     receive() external payable {}
+
     function addFunds() external payable {}
+
+    function justTesting() external pure returns (uint256) {
+        return 2 + 2;
+    }
+
+    /*
+        pure, view --- read only call, no gas fee
+        view -> it indicates that the function will not alter the storage state in any way
+        pure -> even more strict, indicating thath it won't even read the storage state
+    */
+
+    /*
+        Transaction (can generate state changes) and require gas fee
+    */
 }
 
 // const instance = await Faucet.deployed()
