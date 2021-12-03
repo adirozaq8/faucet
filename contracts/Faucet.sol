@@ -10,8 +10,13 @@ contract Faucet {
         funders.push(msg.sender);
     }
 
-    function getAllFunders() external view returns(address[] memory) {
+    function getAllFunders() public view returns(address[] memory) {
         return funders;
+    }
+
+    function getFunderAtIndex(uint index) external view returns(address) {
+        address[] memory _funders = getAllFunders();
+        return _funders[index];
     }
 
     /*
@@ -23,6 +28,8 @@ contract Faucet {
     /*
         Transaction (can generate state changes) and require gas fee
     */
+
+    // public can be accessed by internal function, external cannot
 }
 
 // const instance = await Faucet.deployed()
