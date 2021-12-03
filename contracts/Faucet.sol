@@ -2,12 +2,16 @@
 pragma solidity >=0.4.22 <0.9.0;
 
 contract Faucet {
+
+    address[] public funders;
+
     receive() external payable {}
+    function addFunds() external payable {
+        funders.push(msg.sender);
+    }
 
-    function addFunds() external payable {}
-
-    function justTesting() external pure returns (uint256) {
-        return 2 + 2;
+    function getAllFunders() external view returns(address[] memory) {
+        return funders;
     }
 
     /*
@@ -25,3 +29,6 @@ contract Faucet {
 // instance.addFunds({value: "2000000000000000000"})
 
 // web3.eth.sendTransaction({from: address, to: address/smart_contract, data: hashed_keccak256_function (4 bytes), value: value_in_wei})
+
+// instance.addFunds({value: "2000000000000000000", from: accounts[0]})
+// instance.funders(0) --> mandatory param, just like index array
