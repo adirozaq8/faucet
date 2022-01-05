@@ -9,6 +9,8 @@ function App() {
     web3: null
   })
 
+  const [account, setAccount] = useState(null)
+
   useEffect(() => {
     const loadProvider = async () => {
       let provider = null;
@@ -36,22 +38,25 @@ function App() {
     loadProvider()
   }, [])
 
+  useEffect(() => {
+    const getAccounts = async () => {
+      const accounts = await web3Api.web3.eth.getAccounts()
+      setAccount(accounts[0])
+    }
+
+    web3Api.web3 && getAccounts()
+  }, [web3Api.web3])
+
   return (
     <>
       <div className="faucet-wrapper">
         <div className="faucet">
+          <h1>
+            {account ? account : "not connected"}
+          </h1>
           <div className="balance-view is-size-2">
             Current Balance: <strong>10</strong> ETH
           </div>
-          <button
-            className='btn mr-2'
-            onClick={async () => {
-              const accounts = await window.ethereum.request({ method: "eth_requestAccounts" })
-              console.log(accounts)
-            }}
-          >
-            Enable Ethereum
-          </button>
           <button className='btn mr-2'>Donate</button>
           <button className='btn'>Withdraw</button>
         </div>
